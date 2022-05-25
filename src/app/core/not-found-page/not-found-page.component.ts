@@ -7,9 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotFoundPageComponent implements OnInit {
 
-  constructor() { }
-
+  loading = true;
+  
   ngOnInit(): void {
+    setTimeout(() => {
+      this.loading = false;
+    }, 500);
   }
-
 }
