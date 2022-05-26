@@ -1,17 +1,15 @@
 // Source: https://github.com/Taimoorkhan1122/React-Dashboard
-import interpolateColors, { interpolateCustomColors } from './chromaticColors';
+import interpolateColors from './chromaticColors';
 import * as d3 from 'd3-scale-chromatic';
 
 export const chartData = (chartConfig) => {
   const { labels, data, colorRangeInfo, scale, dataLabel } = chartConfig;
 
   // chromatic color data
-  const dataLenght = labels.length;
+  const dataLength = labels.length;
 
   // sets d3 interpolate color range
-  const colorScale = scale;
-
-  const randomColor = interpolateColors(dataLenght, colorScale, colorRangeInfo);
+  const randomColor = interpolateColors(dataLength, scale, colorRangeInfo);
 
   return {
     labels: labels,

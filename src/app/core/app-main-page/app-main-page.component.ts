@@ -7,12 +7,12 @@ import { interval, map, Subscription } from 'rxjs';
 import { generateColors } from '../../shared/utils/chartData';
 import { DatePipe } from '@angular/common';
 import { LocalStorageService } from 'ngx-webstorage';
-import { StorageInformation } from '../../shared/storage-information';
+import { StorageInformation } from '../../shared/utils/storage-information';
 
 @Component({
   selector: 'app-app-main-page',
   templateUrl: './app-main-page.component.html',
-  styleUrls: ['./app-main-page.component.scss']
+  styles: ['']
 })
 export class AppMainPageComponent implements OnInit, OnDestroy {
  // Loading variable
@@ -120,12 +120,6 @@ export class AppMainPageComponent implements OnInit, OnDestroy {
   }
   
   loadHistory(): void {
-    // for(let i = 0; this.history.length < 120; i++) {
-    //   this.history.push({
-    //     time: this.currencyData.time,
-    //     bpi: this.currencyData.bpi
-    //   });
-    // }
     this.history.unshift({
       time: this.currencyData.time,
       bpi: this.currencyData.bpi
@@ -189,7 +183,7 @@ export class AppMainPageComponent implements OnInit, OnDestroy {
           usePointStyle: true,
           bodyFont: { size: 10 },
           callbacks: {
-            // Show currency symbol
+            // Show currency symbol on hover
             label: ({dataset, parsed, label}) => {
               let index = 0;
               for (let i = 0; i < dataset.data.length; i++)

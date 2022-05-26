@@ -5,7 +5,7 @@ export interface RawCurrency {
 	chartName:  string;
 	bpi:        Bpi;
 }
-// How the information is needed on frontend
+// How the information is needed in frontend
 export interface FormattedCurrency {
 	time:       Time;
 	disclaimer: string;
