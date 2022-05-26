@@ -6,6 +6,8 @@ import { BpiDetail, Chart, CurrencySymbol, FormattedCurrency, History, RawCurren
 import { interval, map, Subscription } from 'rxjs';
 import { generateColors } from '../../shared/utils/chartData';
 import { DatePipe } from '@angular/common';
+import { LocalStorageService } from 'ngx-webstorage';
+import { StorageInformation } from '../../shared/storage-information';
 
 @Component({
   selector: 'app-app-main-page',
@@ -35,12 +37,15 @@ export class AppMainPageComponent implements OnInit, OnDestroy {
   // Subscription config (30000 ms = 30 seconds)
   intervalTime: number = 30000;
   subscription: Subscription;
+  storageService: LocalStorageService;
+  currencySymbol = CurrencySymbol;
   
   constructor(
     private readonly globalMessageService: GlobalMessageService,
     private datePipe: DatePipe
   ) {
     this.catalogService = AppInjector.injector.get(CatalogService);
+    this.storageService = AppInjector.injector.get(LocalStorageService);
     // Set subscription accumulator
     this.subscription = new Subscription();
   }
@@ -51,6 +56,8 @@ export class AppMainPageComponent implements OnInit, OnDestroy {
   }
   
   ngOnInit(): void {
+    if(this.storageService.retrieve(StorageInformation.history))
+      this.history = this.storageService.retrieve(StorageInformation.history);
     this.loadChart();
     this.loadListener();
   }
@@ -85,11 +92,14 @@ export class AppMainPageComponent implements OnInit, OnDestroy {
             // Setting random colors for chart
             const chartColors = generateColors(this.currencyData.bpi?.length ?? 0);
             //Add to history (30 segs -> 2 per minute * 60 min = 120 maximum records in an hour)
-            if(history.length < 120) {
+            if(this.history.length < 120) this.loadHistory();
+            else {
+              this.history.pop();
               this.history.unshift({
                 time: this.currencyData.time,
                 bpi: this.currencyData.bpi
               });
+              this.storageService.store(StorageInformation.history, this.history);
             }
             // Setting chart labels and datasets to follow model
             this.chartData.labels = this.currencyData.bpi.map((bpi: BpiDetail)  => bpi.code);
@@ -107,6 +117,20 @@ export class AppMainPageComponent implements OnInit, OnDestroy {
           },
         })
     );
+  }
+  
+  loadHistory(): void {
+    // for(let i = 0; this.history.length < 120; i++) {
+    //   this.history.push({
+    //     time: this.currencyData.time,
+    //     bpi: this.currencyData.bpi
+    //   });
+    // }
+    this.history.unshift({
+      time: this.currencyData.time,
+      bpi: this.currencyData.bpi
+    });
+    this.storageService.store(StorageInformation.history, this.history);
   }
   
   showError(): void {

@@ -39,6 +39,7 @@ export interface Chart {
 }
 
 export interface ChartDataSet {
+	label?: string;
 	data: number[];
 	backgroundColor: string[]
 }

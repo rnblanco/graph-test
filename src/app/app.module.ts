@@ -12,6 +12,7 @@ import { HttpInterceptorService } from './auth/interceptors/http-interceptor.ser
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { DatePipe } from '@angular/common';
+import { NgxWebstorageModule } from 'ngx-webstorage';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,11 @@ import { DatePipe } from '@angular/common';
     }
   ],
   imports: [
+    NgxWebstorageModule.forRoot({
+      prefix: 'graph',
+      separator: '.',
+      caseSensitive: true,
+    }),
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,

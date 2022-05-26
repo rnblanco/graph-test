@@ -1,31 +1,31 @@
-<section class="p-d-flex p-flex-column p-jc-center p-ai-center">
-	<!-- Show this message when an error ocurred -->
-	<div *ngIf="!loading && !currencyData" class="p-card custom-card p-p-2">No hay datos disponibles</div>
-	<!-- There are no errors -->
-	<section class="p-d-flex p-jc-center p-ai-center">
-		<div class="p-d-flex p-jc-center p-ai-center">
-			<p-table [value]="history">
-				<ng-template pTemplate="header" let-his>
+<section class="p-d-flex p-flex-column p-jc-between p-ai-between p-mr-4 p-ml-4 p-mt-4">
+	<section class="p-d-flex p-flex-wrap p-jc-between p-ai-start">
+		<div class="p-d-flex p-flex-column" *ngIf="history?.length > 0">
+			<p-table styleClass="p-datatable-sm br-6" responsiveLayout="scroll" [value]="history" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,20,40,80,120]">
+				<ng-template pTemplate="header">
 					<tr>
-						<td>Date</td>
-						<td *ngFor="let bpi of his.bpi">{{bpi.code}}</td>
+						<th>Date</th>
+						<th *ngFor="let bpi of history[0]?.bpi">{{bpi?.code}}</th>
 					</tr>
 				</ng-template>
 				<ng-template pTemplate="body" let-his>
 					<tr>
-						<td>{{ his.time.updatedISO | date:'dd/MM/yyyy hh:mm a' }}</td>
-						<td *ngFor="let bpi of his.bpi">{{bpi.rate_float}}</td>
+						<td>{{ his?.time?.updatedISO | date:'dd/MM/yyyy hh:mm a' }}</td>
+						<td *ngFor="let bpi of his?.bpi">{{currencySymbol[bpi?.symbol]}}{{bpi?.rate_float}}</td>
 					</tr>
 				</ng-template>
 			</p-table>
 		</div>
-		<div class="p-d-flex p-flex-column p-mt-4">
-			<div class="p-card custom-card p-p-2 p-ml-2 p-mr-2">
-				<p-chart *ngIf="currencyData" type="pie" [data]="chartData" height="250px" [options]="chartOptions"></p-chart>
+		<!-- Show this message when an error ocurred -->
+		<div *ngIf="!loading && !currencyData" class="p-card custom-card p-p-2">No hay datos disponibles</div>
+		<!-- There are no errors -->
+		<div class="p-d-flex p-flex-column" *ngIf="currencyData">
+			<div class="p-card custom-card p-p-2 p-mt-2">
+				<p-chart type="doughnut" [data]="chartData" height="250px" [options]="chartOptions"></p-chart>
 			</div>
 		</div>
 	</section>
 	<footer>
-		<p class="p-ml-5 p-mr-5"><small [style]="{fontSize: '10px'}">{{ currencyData?.disclaimer }}</small></p>
+		<p class="p-ml-5 p-mr-5 p-text-center"><small [style]="{fontSize: '10px'}">{{ currencyData?.disclaimer }}</small></p>
 	</footer>
 </section>
