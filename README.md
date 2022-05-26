@@ -1,12 +1,12 @@
 # Personal Documentation
 
-##Technical Specifications
+## Technical Specifications
 - Angular: 13
 - PrimeFlex: 2
 - PrimeNG: 13
 - ChartJs: 3
 
-#Available Features
+# Available Features
 
 ## Not Found Page
 The not found page is shown when the url path is not found in the routing module. Shows a loading animation and an error message.
