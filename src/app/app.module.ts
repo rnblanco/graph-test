@@ -13,6 +13,7 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { DatePipe } from '@angular/common';
 import { NgxWebstorageModule } from 'ngx-webstorage';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
     AppRoutingModule,
     InputTextModule,
     HttpClientModule,
-    ToastModule
+    ToastModule,
+    CoreModule
   ],
   bootstrap: [AppComponent]
 })
