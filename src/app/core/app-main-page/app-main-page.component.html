@@ -1,0 +1,40 @@
+<section class="p-d-flex p-flex-column p-jc-between p-ai-between p-mr-4 p-ml-4 p-mt-4">
+	
+	<section class="p-d-flex p-flex-wrap p-jc-between p-ai-start">
+		
+		<!-- History table -->
+		<div class="p-d-flex p-flex-column" *ngIf="history?.length > 0">
+			<p-table styleClass="p-datatable-sm br-6" responsiveLayout="scroll" [value]="history" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,20,40,80,120]">
+				<ng-template pTemplate="header">
+					<tr>
+						<th>Date</th>
+						<!-- Using first element on history array to set the name of the currencies -->
+						<th *ngFor="let bpi of history[0]?.bpi">{{bpi?.code}}</th>
+					</tr>
+				</ng-template>
+				<ng-template pTemplate="body" let-his>
+					<tr>
+						<td>{{ his?.time?.updatedISO | date:'dd/MM/yyyy hh:mm a' }}</td>
+						<!-- Using currencySymbol to get the symbol of the currency -->
+						<td *ngFor="let bpi of his?.bpi">{{currencySymbol[bpi?.symbol]}}{{bpi?.rate_float}}</td>
+					</tr>
+				</ng-template>
+			</p-table>
+		</div>
+		
+		<!-- Show this message when an error ocurred -->
+		<div *ngIf="!loading && !currencyData" class="p-card custom-card p-p-2">No hay datos disponibles</div>
+		
+		<!-- There are no errors -->
+		<div class="p-d-flex p-flex-column" *ngIf="currencyData">
+			<div class="p-card custom-card p-p-2 p-mt-2">
+				<p-chart type="doughnut" [data]="chartData" height="250px" [options]="chartOptions"></p-chart>
+			</div>
+		</div>
+	</section>
+	
+	<footer>
+		<p class="p-ml-5 p-mr-5 p-text-center"><small [style]="{fontSize: '10px'}">{{ currencyData?.disclaimer }}</small></p>
+	</footer>
+	
+</section>
