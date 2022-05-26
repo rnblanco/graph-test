@@ -14,6 +14,7 @@ export class CatalogService extends TemplateService {
 		super(http);
 	}
 	
+	// Basic http get request
 	getOneByName(url: string) {
 		const _url = `${URL}/${url}`;
 		return this.get(_url);

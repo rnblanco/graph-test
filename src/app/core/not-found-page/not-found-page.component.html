@@ -1,1 +1,14 @@
-<p>not-found-page works!</p>
+<div class="full-vh p-d-flex p-jc-center p-ai-center">
+	<div *ngIf="!loading" class="p-d-flex p-flex-column p-jc-center p-ai-center">
+		<img class="error-img" src="assets/images/ux/error-text.jpg" alt="" />
+		<h3>We are sorry :(</h3>
+		<p>Something went wrong. <br> The page you were looking for was not found.</p>
+		<p-button
+			class="p-mt-2"
+			label="Reintentar"
+			routerLink=""
+			NoDblClick
+		></p-button>
+	</div>
+	<app-loading *ngIf="loading"></app-loading>
+</div>

@@ -5,16 +5,13 @@ import { NotFoundPageComponent } from './core/not-found-page/not-found-page.comp
 
 const routes: Routes = [
   {
-    path: 'app',
+    path: '',
     component: AppMainPageComponent,
-    children: [
-      {
-        path: '',
-        loadChildren: () => import('./core/core.module').then((m) => m.CoreModule)
-      },
-    ]
   },
-  { path: '**', component: NotFoundPageComponent}
+  {
+    path: '**',
+    component: NotFoundPageComponent,
+  }
 ];
 
 @NgModule({

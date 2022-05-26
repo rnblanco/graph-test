@@ -8,11 +8,10 @@ import { catchError } from "rxjs/operators";
 })
 export class TemplateService {
 	
-	constructor(
-		protected readonly http: HttpClient
-	) {}
+	constructor(protected readonly http: HttpClient) {}
 	
-	get(url): Observable<any> {
+	// Basic http get request
+	get(url: string): Observable<any> {
 		return this.http.get<any>(url).pipe(
 			catchError(err => {
 				return throwError(err);
