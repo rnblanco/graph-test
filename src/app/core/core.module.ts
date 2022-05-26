@@ -6,6 +6,9 @@ import { LoadingModule } from '../shared/components/loading/loading.module';
 import { ButtonModule } from 'primeng/button';
 import { NoDblClickDirective } from '../shared/directives/no-dbl-click.directive';
 import { RouterModule } from '@angular/router';
+import { ChartModule } from 'primeng/chart';
+import { AccordionModule } from 'primeng/accordion';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -13,11 +16,14 @@ import { RouterModule } from '@angular/router';
     NotFoundPageComponent,
     NoDblClickDirective
   ],
-  imports: [
-    CommonModule,
-    LoadingModule,
-    ButtonModule,
-    RouterModule
-  ],
+	imports: [
+		CommonModule,
+		LoadingModule,
+		ButtonModule,
+		RouterModule,
+		ChartModule,
+		AccordionModule,
+		TableModule
+	]
 })
 export class CoreModule { }

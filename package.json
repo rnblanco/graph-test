@@ -28,7 +28,8 @@
     "animate.css": "^4.1.1",
 
     "chart.js": "^3.5.1",
-    "chartjs-plugin-datalabels": "^2.0.0"
+    "chartjs-plugin-datalabels": "^2.0.0",
+    "d3-scale-chromatic": "^2.0.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~13.2.6",
